@@ -1,36 +1,36 @@
-// resumee.js — verbindet ID, Axiom, Kit, Run, Zug
+// SCHACH.js — Axiom 1–2–3 / alpha–beta–gamma / TMP-geführt
 
-import { SLIKIT } from "./kit.js";
-import { SLI2 } from "./zug.js";
+export const SCHACH = {
 
-export function RESUMEE(v) {
+    // Axiom-Positionen (1–2–3)
+    axiom: {
+        one:   "alpha",
+        two:   "beta",
+        three: "gamma"
+    },
 
-    // 1. Identität aus ID.html (über kit.js)
-    const id = SLIKIT.id;
-    const axiom = SLIKIT.axiom;
+    // TMP-Führung entscheidet, welche Rolle alpha/beta/gamma haben
+    tmpRole(tmp) {
+        // tmp = 0,1,2 → drei Zustände
+        const roles = [
+            { alpha: 1, beta: 2, gamma: 3 },
+            { alpha: 2, beta: 3, gamma: 1 },
+            { alpha: 3, beta: 1, gamma: 2 }
+        ];
+        return roles[tmp % 3];
+    },
 
-    // 2. Position (81 / 243 / 27 / 9^9)
-    const epoche = SLIKIT.position.epoch;
+    // 8 → 9 Bildung (EVO)
+    evolve(center) {
+        return center === 8 ? 9 : center;
+    },
 
-    // 3. Geschwindigkeit (TMP-RÄR)
-    const tmpFront = SLIKIT.speed.tmpFront;
-    const tmpBack  = SLIKIT.speed.tmpBack;
-
-    // 4. SLI-2.0 Motor
-    const sli = SLI2(v, tmpFront, tmpBack, epoche);
-
-    // 5. 3×3 Matrix (TRANS / WARB / KANAL)
-    const matrix = SLIKIT.matrix;
-
-    // 6. 8 → 9 Bildung
-    const evo = SLIKIT.evolve();
-
-    return {
-        id,
-        axiom,
-        epoche,
-        matrix,
-        evo,
-        sli
-    };
-}
+    // Schach-Position (für SLI)
+    position(ix, xi) {
+        return {
+            front: ix,
+            back: xi,
+            mid: (ix + xi) / 2
+        };
+    }
+};
