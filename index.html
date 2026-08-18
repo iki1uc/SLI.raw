@@ -2,19 +2,50 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>SLI.raw System</title>
-    <script type="module">
-        import { AXIOM } from "./SCHACH.js";
-        import { TMP } from "./kit.js";
-
-        window.onload = () => {
-            const frame = TMP();
-            AXIOM(frame);
-        };
-    </script>
+    <title>FORK + SLI.raw System</title>
 </head>
 <body>
-    <h1>SLI.raw — SCHACH-System</h1>
-    <p>System initialisiert…</p>
+
+<h1>FORK + SLI.raw — Unified System</h1>
+<p>System initialisiert…</p>
+
+<script type="module">
+
+    /* -----------------------------
+       1. SLI.raw / SCHACH-System
+       ----------------------------- */
+
+    import { AXIOM } from "./SCHACH.js";
+    import { TMP } from "./kit.js";
+
+    const frame = TMP();
+    AXIOM(frame);
+
+
+    /* -----------------------------
+       2. FORK-NC Pipeline
+       LIST → SYNC → LOAD → SYSTEM → RUN → SLI
+       ----------------------------- */
+
+    import { NC_LIST } from "./nc.list.js";
+    import { NC_SYNC } from "./nc.sync.js";
+    import { NC_LOADER } from "./nc.loader.js";
+    import { NC_SYSTEM } from "./nc.system.js";
+    import { NC_RUN } from "./nc.run.js";
+    import { NC_SLI } from "./nc.sli.js";
+
+    const keys = ["W","A","S","D"];
+
+    const list = NC_LIST(keys);
+    const sync = NC_SYNC(list);
+    const load = NC_LOADER.packet("W");
+    const sys  = NC_SYSTEM.packet("W");
+    const run  = NC_RUN(sys);
+    const sli  = NC_SLI(run);
+
+    console.log("SLI BIOS:", sli);
+
+</script>
+
 </body>
 </html>
