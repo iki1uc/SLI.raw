@@ -1,0 +1,7 @@
+export function SLI2(v, tmpFront, tmpBack, epoche) {
+    const validTMP = (tmpFront === tmpBack);
+    const IX = v;
+    const BOOST = IX * 4;
+    const XI = v * 0.777;
+    return { active, IX, BOOST, XI, wLOCH };
+}
