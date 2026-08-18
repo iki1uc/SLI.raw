@@ -1,32 +1,114 @@
 <!DOCTYPE html>
-<html>
+<html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <title>FORK + SLI.raw System</title>
+<meta charset="utf-8">
+<title>MYSTERYLANE — Bermuda Wloch Continuum</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<style>
+  body {
+    background:#05070d; color:#e2e8f0;
+    font-family:system-ui, sans-serif;
+    margin:0; padding:20px;
+  }
+  h1 { font-size:22px; margin-bottom:6px; }
+  p.sub { color:#94a3b8; margin-top:0; font-size:14px; }
+  .block {
+    background:#0f121a; border:1px solid #1f2533;
+    padding:16px; border-radius:10px; margin-bottom:20px;
+  }
+  .title { font-size:16px; margin-bottom:8px; color:#7dd3fc; }
+</style>
 </head>
+
 <body>
 
-<h1>FORK + SLI.raw — Unified System</h1>
-<p>System initialisiert…</p>
+<h1>MYSTERYLANE — Bermuda Wloch Continuum</h1>
+<p class="sub">SLI.raw • COSMAT • UFO‑Learn • SETI‑Interpretation • BIL‑3E Mind‑Station • FORK‑NC‑Pipeline</p>
+
+<div class="block">
+  <div class="title">SLI.raw — Kosmischer Impuls</div>
+  <p id="sli"></p>
+</div>
+
+<div class="block">
+  <div class="title">COSMAT — Kosmisches Kalkül</div>
+  <p id="cosmat"></p>
+</div>
+
+<div class="block">
+  <div class="title">UFO‑Learn — Anomalien</div>
+  <p id="ufo"></p>
+</div>
+
+<div class="block">
+  <div class="title">BIL‑3E — Mind‑Station</div>
+  <p id="bil"></p>
+</div>
+
+<div class="block">
+  <div class="title">FORK‑NC — Bewegung</div>
+  <p id="fork"></p>
+</div>
 
 <script type="module">
 
-    /* -----------------------------
-       1. SLI.raw / SCHACH-System
-       ----------------------------- */
-
-    import { AXIOM } from "./SCHACH.js";
+    /* -------------------------------------------------------
+       1. SLI.raw — Mini‑BIOS
+       ------------------------------------------------------- */
     import { TMP } from "./kit.js";
+    import { AXIOM } from "./SCHACH.js";
 
     const frame = TMP();
     AXIOM(frame);
+    document.getElementById("sli").textContent =
+        "SLI-Frame geladen: " + JSON.stringify(frame);
 
 
-    /* -----------------------------
-       2. FORK-NC Pipeline
-       LIST → SYNC → LOAD → SYSTEM → RUN → SLI
-       ----------------------------- */
+    /* -------------------------------------------------------
+       2. COSMAT — Kosmisches Kalkül
+       ------------------------------------------------------- */
+    import { COSMAT_CORE } from "./cosmat.core.js";
+    import { COSMAT_LEARN } from "./cosmat.learn.js";
+    import { COSMAT_SOLVE } from "./cosmat.solve.js";
 
+    const norms = { v_kepler: 30, theta_norm: 0.2, f_norm: 440 };
+    const row   = { x:12, y:5, v:340, dvdt:3, theta:0.9, f:445 };
+
+    const core  = COSMAT_CORE(row, norms);
+    const learn = COSMAT_LEARN(core);
+    const solve = COSMAT_SOLVE(core);
+
+    document.getElementById("cosmat").textContent =
+        "COSMAT: " + JSON.stringify({core, learn, solve});
+
+
+    /* -------------------------------------------------------
+       3. UFO‑Learn — SETI‑Interpretation
+       ------------------------------------------------------- */
+    import { UFO_LEARN } from "./ufo.learn.js";
+    import { UFO_SETI } from "./ufo.seti.js";
+
+    const ufoData = UFO_LEARN(row);
+    const seti    = UFO_SETI(ufoData);
+
+    document.getElementById("ufo").textContent =
+        "UFO/SETI: " + JSON.stringify({ufoData, seti});
+
+
+    /* -------------------------------------------------------
+       4. BIL‑3E — Mind‑Station
+       ------------------------------------------------------- */
+    import { BIL_3E } from "./mind.bil.js";
+
+    const bil = BIL_3E(12, 5);
+    document.getElementById("bil").textContent =
+        "BIL‑3E: " + JSON.stringify(bil);
+
+
+    /* -------------------------------------------------------
+       5. FORK‑NC — Bewegung
+       ------------------------------------------------------- */
     import { NC_LIST } from "./nc.list.js";
     import { NC_SYNC } from "./nc.sync.js";
     import { NC_LOADER } from "./nc.loader.js";
@@ -35,15 +117,15 @@
     import { NC_SLI } from "./nc.sli.js";
 
     const keys = ["W","A","S","D"];
-
     const list = NC_LIST(keys);
     const sync = NC_SYNC(list);
     const load = NC_LOADER.packet("W");
     const sys  = NC_SYSTEM.packet("W");
     const run  = NC_RUN(sys);
-    const sli  = NC_SLI(run);
+    const sli2 = NC_SLI(run);
 
-    console.log("SLI BIOS:", sli);
+    document.getElementById("fork").textContent =
+        "FORK-NC: " + JSON.stringify({list, sync, load, sys, run, sli2});
 
 </script>
 
